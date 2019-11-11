@@ -23,9 +23,9 @@ import re
 from sys import argv
 
 #accept user input from cmdline with script (hard coded cron_ex for testing purposes)
-#cron_ex = argv
+#cron_ex = argv[0-6]
 
-cron_ex = "*/15 0 1,15 * 1-5 /usr/bin/find"
+#cron_ex = "*/15 0 1,15 * 1-5 /usr/bin/find"
 #minutes, hours, day of month, month, day of week lists
 
 minutes = []
@@ -35,7 +35,7 @@ month = []
 day_of_week = []
 
 #split cron into pieces
-cron_pieces = cron_ex.split(" ")
+#cron_pieces = cron_ex.split(" ")
 
 
 #funtion to strip non numeric chars and operate on numbers with wild card chars removed. currently have *,/,- and , implemented and can implement more
@@ -78,18 +78,18 @@ def cron_output (piece, time_period, values):
          
 #output cron pieces into grid of all possible outputs and error handling
 if len(argv) != 6:
-    minutes = cron_output(cron_pieces[0],60, minutes)
-    hours = cron_output(cron_pieces[1], 24, hours)
-    day_of_month = cron_output(cron_pieces[2], 31, day_of_month)
-    month = cron_output(cron_pieces[3], 13, month)
-    day_of_week = cron_output(cron_pieces[4], 7, day_of_week)
-
-    print("Minutes: " + str(minutes))
-    print("Hours: " + str(hours))
-    print("Day of the Month: " + str(day_of_month))
-    print("Month: " + str(month))
-    print("Day of the Week: " + str(day_of_week))
-    print(cron_pieces[5])
+    minutes = cron_output(argv[1],60, minutes)
+    hours = cron_output(argv[2], 24, hours)
+    day_of_month = cron_output(argv[3], 31, day_of_month)
+    month = cron_output(argv[4], 13, month)
+    day_of_week = cron_output(argv[5], 7, day_of_week)
+    print ("This cron will run on the following... \n")
+    print("Minute(s): " + str(minutes))
+    print("Hour(s): " + str(hours))
+    print("Day(s) of the Month: " + str(day_of_month))
+    print("Month(s): " + str(month))
+    print("Day(s) of the Week: " + str(day_of_week))
+    print(argv[6])
 else:
     print("This is not a valid cron. There needs to be 6 arguments.")
 
